@@ -39,23 +39,26 @@ Checklist
 
  3 ubuntu servers was spinned up
 
- ![pic](img)
+ ![pic](img/img1.png)
 
 ## Install Nginx and Setup Your Website
 
 Website template  was downloaded from your www.tooplate.com
 
 Right click and select Inspect from the drop down menu
+ * Click on the Network tab
+ * Click the Download button and right click on the website name
+ * Select Copy and click on Copy URL.
 
- ![pic](img)
+ ![pic](img/img2.png)
 
-![pic](img)
 
- ![pic](img)
+![pic](img/img3.png)
 
- ![pic](img)
+ 
 
-* To install Nginx, execute the following commands on your terminal.
+## To install Nginx, execute the following commands on your terminal.
+
 sudo apt update
 
 sudo apt upgrade
@@ -64,4 +67,38 @@ sudo apt install nginx
 
 * Start your Nginx server by running the sudo systemctl start nginx command, enable it to start on boot by executing sudo systemctl enable nginx, and then confirm if it's running with the sudo systemctl status nginx command.
 
+![pic](img/img4.png)
+
+* Visit your instances IP address in a web browser to view the default Nginx startup page.
+
+![pic](img/img5.png)
+
+*  I executed sudo apt install unzip to install the unzip tool and run the following command to download and unzip your website files sudo curl -o /var/www/html/2133_moso_interior.zip https://www.tooplate.com/zip-templates/2133_moso_interior.zip && sudo unzip -d /var/www/html/ /var/www/html/2133_moso_interior.zip && sudo rm -f /var/www/html/2133_moso_interior.zip for both website
+
+![pic](img/img6.png)
+
+![pic](img/img7.png)
+
+I set up your website's configuration for both website on their different terminal, start by creating a new file in the Nginx sites-available directory. Use the following command to open a blank file in a text editor: sudo nano /etc/nginx/sites-available/interior. same for the second website
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    root /var/www/html/2133_moso_interior;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
+
+
+* Edit the root directive within your server block to point to the directory where your downloaded website content is stored.
+
 ![pic](img)
+
+![pic](img)
+
+* Create a symbolic link for both websites ( Interior/ Cleaning) by running the following command. sudo ln -s /etc/nginx/sites-available/interior /etc/nginx/sites-enabled/
