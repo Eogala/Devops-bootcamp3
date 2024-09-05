@@ -10,16 +10,22 @@ Scalability: You can add more servers in the upstream block to scale out your ap
 
 Tasks                                                                   |
 |----|---------------------------------------------------------------------------------|
-| 1  |Deploy three servers                          
+
+| 1  |Deploy three servers 
+
         |
 | 2  | Set up static websites on two servers using Nginx.         
                 |
-| 3  | Use two separate HTML files with distinct content. Deploy one file to each server's index.html location.                                         |
+| 3  | Use two separate HTML files with distinct content. Deploy one file to each server's index.html 
+location.                                         |
 | 4  |Set up Nginx on the third server. It will act as a load balancer.     
+
    |
-| 5  |Configure Nginx to load and balance traffic between two static websites.      
+| 5  |Configure Nginx to load and balance traffic between two static websites.
+
                 |
-| 6  |Add the Nginx Load balancer IP to the DNS A record.        
+| 6  |Add the Nginx Load balancer IP to the DNS A record.       
+
                       |
 | 7  |Try accessing the website. Every time you reload the website you should see a different index.html.
                      |
@@ -83,6 +89,7 @@ I set up your website's configuration for both website on their different termin
 
 server {
     listen 80;
+
     server_name example.com www.example.com;
 
     root /var/www/html/2133_moso_interior;
@@ -102,3 +109,70 @@ server {
 ![pic](img)
 
 * Create a symbolic link for both websites ( Interior/ Cleaning) by running the following command. sudo ln -s /etc/nginx/sites-available/interior /etc/nginx/sites-enabled/
+
+![pic](img/img8.png)
+
+* Run the sudo nginx -t command to check the syntax of the Nginx configuration file, and when successful run the sudo systemctl restart nginx command.
+
+![pic](img/img9.png)
+
+* On your first server, i ran  sudo rm /etc/nginx/sites-enabled/default, and on second server, i ran sudo rm /etc/nginx/sites-enabled/default. This will delete the default site-enabled folders and enable Nginx to serve content from your specified website directories. If the default folders is not deleted, you'll continue to see the default Nginx page.
+
+
+![pic](img/img10.png)
+
+
+![pic](img/img11.png)
+
+
+* Run the sudo systemctl restart nginx command to restart your server.
+
+* Check both IP addresses to confirm your website is up and running.
+
+
+# Configure your Load balancer
+
+Install Nginx on the server you want to use as a load balancer, and execute sudo systemctl status nginx to ensure it's running.
+
+* Execute sudo nano /etc/nginx/nginx.conf to edit your Nginx configuration file.
+
+* Add the following within the http block.
+
+}
+
+server {
+    listen 80;
+    server_name eogala1818.xyz www.eogala1818.xyz ;
+
+    location / {
+        proxy_pass http://eogala18;
+    }
+}
+
+
+
+ upstream eogala1818 {
+    server 34.227.198.17;
+    server 44.208.37.190;
+    # Add more servers as needed
+}
+
+server {
+    listen 80;
+    server_name eogala1818.xyz www.eogala1818.xyz;
+
+    location / {
+        proxy_pass http://eogala1818;
+    }
+}
+
+
+![pic](img/img%2012.png)
+
+Run sudo nginx -t to check for syntax error.
+
+Apply the changes by restarting Nginx: sudo systemctl restart nginx
+
+
+# Create An A Record
+
