@@ -9,26 +9,16 @@ Round Robin: By default, Nginx uses a round-robin algorithm to distribute traffi
 Scalability: You can add more servers in the upstream block to scale out your application.
 
 Tasks                                                                   |
-|----|---------------------------------------------------------------------------------|
+|----|---------------------------------------------------------------------------------------------------|
 
-| 1  |Deploy three servers 
-
-        |
-| 2  | Set up static websites on two servers using Nginx.         
-                |
+| 1  |Deploy three servers                                                                               |
+| 2  | Set up static websites on two servers using Nginx.                                                |
 | 3  | Use two separate HTML files with distinct content. Deploy one file to each server's index.html 
-location.                                         |
-| 4  |Set up Nginx on the third server. It will act as a load balancer.     
-
-   |
-| 5  |Configure Nginx to load and balance traffic between two static websites.
-
-                |
-| 6  |Add the Nginx Load balancer IP to the DNS A record.       
-
-                      |
-| 7  |Try accessing the website. Every time you reload the website you should see a different index.html.
-                     |
+location.                                                                                                |
+| 4  |Set up Nginx on the third server. It will act as a load balancer.                                  |
+| 5  |Configure Nginx to load and balance traffic between two static websites.                           |
+| 6  |Add the Nginx Load balancer IP to the DNS A record.                                                |
+| 7  |Try accessing the website. Every time you reload the website you should see a different index.html.|
 
 
 Checklist
@@ -104,9 +94,6 @@ server {
 
 * Edit the root directive within your server block to point to the directory where your downloaded website content is stored.
 
-![pic](img)
-
-![pic](img)
 
 * Create a symbolic link for both websites ( Interior/ Cleaning) by running the following command. sudo ln -s /etc/nginx/sites-available/interior /etc/nginx/sites-enabled/
 
@@ -138,36 +125,9 @@ Install Nginx on the server you want to use as a load balancer, and execute sudo
 
 * Add the following within the http block.
 
-}
-
-server {
-    listen 80;
-    server_name eogala1818.xyz www.eogala1818.xyz ;
-
-    location / {
-        proxy_pass http://eogala18;
-    }
-}
-
-
-
- upstream eogala1818 {
-    server 34.227.198.17;
-    server 44.208.37.190;
-    # Add more servers as needed
-}
-
-server {
-    listen 80;
-    server_name eogala1818.xyz www.eogala1818.xyz;
-
-    location / {
-        proxy_pass http://eogala1818;
-    }
-}
-
 
 ![pic](img/img%2012.png)
+
 
 Run sudo nginx -t to check for syntax error.
 
@@ -186,25 +146,28 @@ In route 53, select the domain name and click on Create record.
 
 Paste your IP address➀ and then click on Create records➁ to create the root domain.
 
-Click on create record again, to create the record for your sub domain.
+![pic](img/15.png)
 
+
+Click on create record again, to create the record for your sub domain.
 Paste your IP address➀, input the Record name(www➁) and then click on Create records➂.
 
 Go to the terminal you used in setting your first website and run sudo nano /etc/nginx/sites-available/interior to edit your settings. Enter the name of your domain and then save your settings.
 
-![pic](img)
-
-
-Restart your nginx server by running the sudo systemctl restart nginx command.
-
-Go to the terminal you used in setting your second website and run sudo nano /etc/nginx/sites-available/interior to edit your settings. Enter the name of your domain and then save your settings.
+![pic](img/19a.png)
 
 Restart your nginx server by running the sudo systemctl restart nginx command.
+
+![pic](img/19b.png)
+
 
 Go to your domain name in a web browser to verify that your website is accessible.
 Reload the webpage to ensure the load balancer distributes traffic evenly between your servers.
 
 ![pic](img/img17.png)
+
+Reload the webpage to ensure the load balancer distributes traffic evenly between your servers.
+
 
 ![pic](img/img18.png)
 
