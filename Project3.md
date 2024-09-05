@@ -176,3 +176,53 @@ Apply the changes by restarting Nginx: sudo systemctl restart nginx
 
 # Create An A Record
 
+To make your website accessible via your domain name rather than the IP address, you'll need to set up a DNS record. I did this by buying my domain from Namecheap and then moving hosting to AWS Route 53, where I set up an A record.
+
+Note
+
+Visit Project1 for instructions on how to create a hosted zone.Point your domain's DNS records to the IP addresses of your Nginx load balancer server.
+
+In route 53, select the domain name and click on Create record.
+
+Paste your IP address➀ and then click on Create records➁ to create the root domain.
+
+Click on create record again, to create the record for your sub domain.
+
+Paste your IP address➀, input the Record name(www➁) and then click on Create records➂.
+
+Go to the terminal you used in setting your first website and run sudo nano /etc/nginx/sites-available/interior to edit your settings. Enter the name of your domain and then save your settings.
+
+![pic](img)
+
+
+Restart your nginx server by running the sudo systemctl restart nginx command.
+
+Go to the terminal you used in setting your second website and run sudo nano /etc/nginx/sites-available/interior to edit your settings. Enter the name of your domain and then save your settings.
+
+Restart your nginx server by running the sudo systemctl restart nginx command.
+
+Go to your domain name in a web browser to verify that your website is accessible.
+Reload the webpage to ensure the load balancer distributes traffic evenly between your servers.
+
+![pic](img)
+
+![pic](img)
+
+## Install certbot and Request For an SSL/TLS Certificate
+
+* Install certbot by executing the following commands: sudo apt update sudo apt install python3-certbot-nginx
+
+* Execute the sudo certbot --nginx command to request your certificate. Follow the instructions provided by certbot and select the domain name for which you would like to activate HTTPS.
+
+![pic](img)
+
+![pic](img)
+
+Access your website to verify that Certbot has successfully enabled HTTPS.
+
+![pic](img)
+
+![pic](img)
+
+* It is recommended to renew your LetsEncrypt certificate at least every 60 days or more frequently. You can test renewal command in dry-run mode: sudo certbot renew --dry-run
+
