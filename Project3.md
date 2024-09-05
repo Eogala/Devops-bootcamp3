@@ -90,10 +90,10 @@ server {
 
 
 
-* Edit the root directive within your server block to point to the directory where your downloaded website content is stored.
+* Edited the root directive within the both server block to point to the directory where the downloaded website content is stored.
 
 
-* Create a symbolic link for both websites ( Interior/ Cleaning) by running the following command. sudo ln -s /etc/nginx/sites-available/interior /etc/nginx/sites-enabled/
+* Created a symbolic link for both websites ( Interior/ Cleaning) by running the following command. sudo ln -s /etc/nginx/sites-available/interior /etc/nginx/sites-enabled/
 
 ![pic](img/img8.png)
 
@@ -110,7 +110,7 @@ server {
 ![pic](img/img11.png)
 
 
-* Run the sudo systemctl restart nginx command to restart your server.
+* Ran the sudo systemctl restart nginx command to restart your server.
 
 * Check both IP addresses to confirm your website is up and running.
 
@@ -119,12 +119,17 @@ server {
 
 Install Nginx on the server you want to use as a load balancer, and execute sudo systemctl status nginx to ensure it's running.
 
+
+![pic](img/24.png)
+
 * Execute sudo nano /etc/nginx/nginx.conf to edit your Nginx configuration file.
+
+![pic](img/25.png)
 
 * Add the following within the http block.
 
-
 ![pic](img/img%2012.png)
+
 
 
 Run sudo nginx -t to check for syntax error.
@@ -140,17 +145,17 @@ Note
 
 Visit Project1 for instructions on how to create a hosted zone.Point your domain's DNS records to the IP addresses of your Nginx load balancer server.
 
-In route 53, select the domain name and click on Create record.
+* In route 53, select the domain name and click on Create record.
 
-Paste your IP address➀ and then click on Create records➁ to create the root domain.
+* Paste your IP address➀ and then click on Create records➁ to create the root domain.
 
 ![pic](img/15.png)
 
 
-Click on create record again, to create the record for your sub domain.
+* Click on create record again, to create the record for your sub domain.
 Paste your IP address➀, input the Record name(www➁) and then click on Create records➂.
 
-Go to the terminal you used in setting your first website and run sudo nano /etc/nginx/sites-available/interior to edit your settings. Enter the name of your domain and then save your settings.
+* Go to the terminal you used in setting your first website and run sudo nano /etc/nginx/sites-available/interior to edit your settings. Enter the name of your domain and then save your settings.
 
 ![pic](img/19a.png)
 
@@ -189,3 +194,4 @@ Access your website to verify that Certbot has successfully enabled HTTPS.
 
 ![pic](img/23.png)
 
+The end
