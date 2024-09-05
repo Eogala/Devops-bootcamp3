@@ -204,9 +204,9 @@ Restart your nginx server by running the sudo systemctl restart nginx command.
 Go to your domain name in a web browser to verify that your website is accessible.
 Reload the webpage to ensure the load balancer distributes traffic evenly between your servers.
 
-![pic](img)
+![pic](img/img17.png)
 
-![pic](img)
+![pic](img/img18.png)
 
 ## Install certbot and Request For an SSL/TLS Certificate
 
@@ -214,15 +214,17 @@ Reload the webpage to ensure the load balancer distributes traffic evenly betwee
 
 * Execute the sudo certbot --nginx command to request your certificate. Follow the instructions provided by certbot and select the domain name for which you would like to activate HTTPS.
 
-![pic](img)
+![pic](img/19.png)
 
-![pic](img)
+![pic](img/20.png)
 
 Access your website to verify that Certbot has successfully enabled HTTPS.
 
-![pic](img)
+![pic](img/21.png)
 
-![pic](img)
+![pic](img/22.png)
 
 * It is recommended to renew your LetsEncrypt certificate at least every 60 days or more frequently. You can test renewal command in dry-run mode: sudo certbot renew --dry-run
+
+![pic](img/23.png)
 
